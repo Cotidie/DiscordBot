@@ -4,7 +4,7 @@ from sqlite3 import connect
 DB_PATH = "./data/db/database.db"
 BUILD_PATH = "./data/db/build.sql"
 
-# DB 연결 및 커서 생성
+# db 연결 및 커서 생성
 cxn = connect(DB_PATH, check_same_thread=False)
 cur = cxn.cursor()
 
@@ -18,11 +18,11 @@ def build():
     if isfile(BUILD_PATH):
         scriptexec(BUILD_PATH)
 
-# DB 커밋
+# db 커밋
 def commit():
     cxn.commit()
 
-# DB 종료
+# db 종료
 def close():
     cxn.close()
 
