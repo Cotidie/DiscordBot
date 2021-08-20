@@ -40,7 +40,12 @@ class Bot(BotBase):
             print("아늑이가 아직 정신을 못차렸습니다.")
     
     async def on_message(self, message:str):
-        pass
+        # 방어코드
+        if not message.match('[0-9]+'):
+            print("잘못된 명령어 호출")
+            return
+
+        
 
 # 봇 인스턴스 생성
 bot = Bot()
