@@ -1,13 +1,13 @@
-from datetime import datetime
-from glob import glob
-from config import CONFIG  # 환경설정
-from lib.db.db import db
+from datetime       import datetime
+from glob           import glob
+from config         import CONFIG  # 환경설정
+from lib.db.db      import db
 
-from discord import Intents, Embed, File
-from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import CommandNotFound
+from discord                        import Intents, Embed, File
+from discord.ext.commands           import Bot as BotBase
+from discord.ext.commands           import CommandNotFound
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.triggers.cron import CronTrigger
+from apscheduler.triggers.cron      import CronTrigger
 
 """
     * self.get_server(ID): 속한 서버, 하드코딩됨
@@ -25,7 +25,7 @@ class Bot(BotBase):
 
         self.db = db                         # MongoDB
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
-
+        print(CONFIG['PREFIX'])
         super().__init__(command_prefix=CONFIG['PREFIX'],
                          owner_ids=CONFIG['OWNER_IDS'],
                          intents=Intents.all())
@@ -52,8 +52,6 @@ class Bot(BotBase):
         filenames = [path.split("\\")[-1] for path in glob(cog_path)]
         # .py 제거
         filenames = list(map(lambda f: f[:-3], filenames))
-        # CogBase 제거
-        filenames.remove("CogBase")
         # __init__ 제거
         filenames.remove("__init__")
 
@@ -70,6 +68,7 @@ class Bot(BotBase):
     async def print_message(self):
         await self.stdout.send("1분마다 발송되는 메시지")
 
+    # 디스코드와 연결된 시점
     async def on_connect(self):
         print("아늑이가 깨어났습니다!")
 
@@ -101,15 +100,15 @@ class Bot(BotBase):
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())
-            fields = [("Name", "Value", True),
-                      ("Field2", "Second one", False),
-                      ("Field3", "Not Inline", False)]
+            fields = [("이름", "아늑이", True),
+                      ("기능", "아직없음", True),
+                      ("헤헤", "히히", False)]
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
             embed.set_author(name="COTIDIE", icon_url=self.guild.icon_url)
             embed.set_thumbnail(url=self.guild.icon_url)
             embed.set_image(url=self.guild.icon_url)
-            embed.set_footer(text="This is Footer!")
+            embed.set_footer(text="아아 살것 같다")
 
             await self.stdout.send(embed=embed)
             # 파일 전송
@@ -119,8 +118,10 @@ class Bot(BotBase):
         else:
             print("아늑이가 아직 정신을 못차렸습니다.")
 
+    # 디스코드의 메시지를 탐지한다.
     async def on_message(self, message: str):
-        pass
+        # 명령어 탐지 및 실행
+        await self.process_commands(message)
 
 
 # 봇 인스턴스 생성

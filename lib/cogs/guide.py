@@ -12,8 +12,8 @@ class GuideCog(Cog):
         self.bot = bot
 
     @commands.command(name="초보자가이드")
-    async def show_guide(self):
-        self.bot.stdout.send("초보자가이드입니다.")
+    async def show_guide(self, ctx):
+        await self.bot.stdout.send("초보자가이드입니다.")
 
 
 def setup(bot):

@@ -6,7 +6,13 @@
 CONFIG = {
     'PREFIX': "!",
     'GUILD_ID': 878239436381495336,           # 아늑 서버
-    'OWNER_IDS': [525193576716566528],
+    'OWNER_IDS': [
+        525193576716566528,                   # COTIDIE
+        445597833995747329                    # 룬닝
+    ],
+    'CHANNEL': {
+        'STDOUT': 878239436381495340,
+    },
     'PATH': {
         'COGS': './lib/cogs/',
         'TOKEN': "./lib/bot/token.0",
