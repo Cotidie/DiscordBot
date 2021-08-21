@@ -1,6 +1,9 @@
 from os.path import isfile
 from sqlite3 import connect
 
+# Cron?
+from apscheduler.triggers.cron import CronTrigger
+
 DB_PATH = "./data/db/database.db"
 BUILD_PATH = "./data/db/build.sql"
 
@@ -21,6 +24,11 @@ def build():
 # db 커밋
 def commit():
     cxn.commit()
+
+# 1분마다 DB와 동기화
+def autosave(sched):
+    # 1분마다 commit한다
+    sched.add_job(commit, CronTrigger(second=0))
 
 # db 종료
 def close():
