@@ -3,4 +3,7 @@
 ## Prerequisites
 > pip install discord.py  
 > pip install apscheduler  
-> pip install aiosqlite
+> pip install aiosqlite  
+> pip install bs4  
+> pip install requests
+> pip install cssselect
