@@ -1,14 +1,12 @@
 from os.path import isfile
 from pymongo import MongoClient, errors, collection
 from apscheduler.triggers.cron import CronTrigger
+from config import CONFIG
 
-DEFAULT_HOST = 'mongodb+srv://admin:1234@links.fc8p4.mongodb.net/PYTHON-LINK-SHORTNER?retryWrites=true&w=majority'
-DEFAULT_COL = 'event'
-DEFAULT_DB = 'discord_bot_anuk'
-COLLECTIONS = {
-    'CONFIG': 'config',
-    'EVENT': 'event'
-}
+DEFAULT_HOST = CONFIG['DB']['DEFAULT_HOST']
+DEFAULT_COL = CONFIG['DB']['DEFAULT_COL']
+DEFAULT_DB = CONFIG['DB']['DEFAULT_DB']
+COLLECTIONS = CONFIG['DB']['COLLECTIONS']
 
 class DataBase(MongoClient):
     """MongoDB 설정해주는 클래스
@@ -59,4 +57,4 @@ class DataBase(MongoClient):
         return res['value']
 
 
-db = DataBase()
+DB = DataBase()

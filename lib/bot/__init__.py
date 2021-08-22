@@ -1,7 +1,7 @@
 from datetime       import datetime
 from glob           import glob
 from config         import CONFIG  # 환경설정
-from lib.db.db      import db
+from lib.db.db      import DB
 
 from discord                        import Intents, Embed, File
 from discord.ext.commands           import Bot as BotBase
@@ -16,18 +16,21 @@ from apscheduler.triggers.cron      import CronTrigger
     * 필요기능: 오늘의 이벤트, 
 """
 
+PREFIX      = CONFIG['PREFIX']
+OWNER_IDS   = CONFIG['OWNER_IDS']
+STDOUT      = CONFIG['CHANNEL']['TEST']['STDOUT']
+GUILD       = CONFIG['GUILD']['TEST']
 
 class Bot(BotBase):
     def __init__(self):
-        self.token = Bot.__get_token()
         self.guild = None  # 속할 서버
         self.ready = False
 
-        self.db = db                         # MongoDB
+        self.db = DB                         # MongoDB
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
-        print(CONFIG['PREFIX'])
-        super().__init__(command_prefix=CONFIG['PREFIX'],
-                         owner_ids=CONFIG['OWNER_IDS'],
+
+        super().__init__(command_prefix=PREFIX,
+                         owner_ids=OWNER_IDS,
                          intents=Intents.all())
 
     # 봇 진입점
@@ -35,7 +38,7 @@ class Bot(BotBase):
         self.setup()
 
         print("아늑 봇이 정신을 차리고 있습니다...")
-        super().run(self.token, reconnect=True)
+        super().run(self.db.get_config("TOKEN_BOT"), reconnect=True)
 
     # Cog 불러오기
     def setup(self):
@@ -92,10 +95,10 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.stdout = self.get_channel(488672146990825474)
+            self.stdout = self.get_channel(STDOUT)
 
             self.scheduler.start()
-            self.guild = self.get_guild(488672146990825472)
+            self.guild = self.get_guild(GUILD)
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())
