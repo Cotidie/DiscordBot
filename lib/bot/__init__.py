@@ -92,11 +92,10 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.stdout = self.get_channel(878239436381495340)
+            self.stdout = self.get_channel(488672146990825474)
 
             self.scheduler.start()
-            self.scheduler.add_job(self.print_message, CronTrigger(second="0, 30"))
-            self.guild = self.get_guild(878239436381495336)
+            self.guild = self.get_guild(488672146990825472)
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())

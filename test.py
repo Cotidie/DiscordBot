@@ -1,15 +1,18 @@
 from glob import glob
+import requests
+from requests_html import HTMLSession
+from bs4 import BeautifulSoup
+from lib.scrapers.sigkill import sigkill_scraper
 
-path = glob("./lib/cogs/*.py")
+def test_dynamic_render():
+    url = 'https://mabi.sigkill.kr/todaymission/'
+    s = HTMLSession()
+    r = s.get(url)
+    r.html.render()
+    print(r.html.html)
 
-def get_cogs():
-    # 파일명 얻기
-    filenames = [path.split("\\")[-1] for path in glob("./lib/cogs/*.py")]
-    # 확장자 제거
-    filenames = list(map(lambda f: f[:-3], filenames))
-    # __init__ 제거
-    filenames.remove("__init__")
+request = requests.get('https://www.crummy.com/software/BeautifulSoup/bs4/doc/#find')
+html = request.text
 
-    return filenames
-
-print(get_cogs())
+bs = BeautifulSoup(html, 'html.parser')
+print(type(bs.find("div")))

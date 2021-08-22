@@ -5,16 +5,20 @@
 
 CONFIG = {
     'PREFIX': "!",
-    'GUILD_ID': 878239436381495336,           # 아늑 서버
+    'GUILD_ID': 488672146990825472,           # 아늑 서버
     'OWNER_IDS': [
         525193576716566528,                   # COTIDIE
         445597833995747329                    # 룬닝
     ],
     'CHANNEL': {
-        'STDOUT': 878239436381495340,
+        'STDOUT': 488672146990825474,
     },
     'PATH': {
         'COGS': './lib/cogs/',
         'TOKEN': "./lib/bot/token.0",
+    },
+    'URL': {
+        'SIGKILL': 'https://mabi.sigkill.kr/todaymission/',
+        'CHIC': 'https://lute.fantazm.net/today_mission',
     },
 }

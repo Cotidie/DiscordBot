@@ -6,4 +6,5 @@
 > pip install aiosqlite  
 > pip install bs4  
 > pip install requests
+> pip install requests_html
 > pip install cssselect
