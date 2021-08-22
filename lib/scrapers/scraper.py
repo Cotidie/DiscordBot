@@ -1,29 +1,35 @@
 import bs4.element
 import requests
-from bs4 import BeautifulSoup
-from requests_html import HTMLSession
+from selenium import webdriver
 
-class Scraper(BeautifulSoup):
-    browser = HTMLSession()
 
-    def __init__(self, url):
-        html = self.get_html(url)
-        super().__init__(html, 'html.parser')
+class Scraper:
+    browser = webdriver.PhantomJS()  # 하나만 존재해야 한다.
 
-    def get_html(self, url):
-        session = Scraper.browser.get(url)
-        session.html.render()
+    def __init__(self):
+        pass
 
-        return session.html.html
-
-    # 부모로부터 몇 번째 자식에 해당하는가를 구한다
-    def get_index_from_parent(self, child:bs4.element.Tag):
+    def get_html(self, url, dynamic: bool = True):
+        """
+        :param url: (str) 파싱할 URL
+        :param dynamic: (bool) 동적 페이지 여부
+        :return: (str) html 원본 문자열 정보
         """
 
-        :param
-            child: 몇 번째 자식인지 알고자 하는 노드
-        :return:
-            (int) 0으로 시작하는 인덱스
+        if dynamic:
+            Scraper.browser.get(url)
+            html = Scraper.browser.page_source
+        else:
+            response = requests.get(url)
+            html = response.text
+
+        return html
+
+    # 부모로부터 몇 번째 자식에 해당하는가를 구한다
+    def get_index_from_parent(self, child: bs4.element.Tag):
+        """
+        :param child: 몇 번째 자식인지 알고자 하는 노드
+        :return: (int) 0으로 시작하는 인덱스
         """
 
         index = 0
@@ -36,4 +42,3 @@ class Scraper(BeautifulSoup):
             index += 1
 
         return index
-

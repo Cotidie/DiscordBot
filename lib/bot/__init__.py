@@ -72,15 +72,16 @@ class Bot(BotBase):
     async def on_disconnect(self):
         print("아늑이가 떠났습니다...")
 
-    async def on_error(self, err, *args, **kwargs):
-        # err는 문자열의 에러메시지
-        if err == "on_command_error":
-            channel = args[0]
-            await channel.send("Something went wrong")
+    # async def on_error(self, err, *args, **kwargs):
+    #     # err는 문자열의 에러메시지
+    #     if err == "on_command_error":
+    #         print(err)
+    #         channel = args[0]
+    #         await channel.send("Something went wrong")
 
     async def on_command_error(self, context, exception):
         if isinstance(exception, CommandNotFound):
-            await context.send("Wrong Command")
+            await print("Wrong Command")
         elif hasattr(exception, "original"):
             raise exception.original
         else:
@@ -89,10 +90,10 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.stdout = self.get_channel(STDOUT); print("채널 로딩 완료")
+            self.stdout = self.get_channel(STDOUT)
 
             self.scheduler.start()
-            self.guild = self.get_guild(GUILD); print("서버 로딩 완료")
+            self.guild = self.get_guild(GUILD)
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())
@@ -104,9 +105,9 @@ class Bot(BotBase):
             embed.set_author(name="COTIDIE", icon_url=self.guild.icon_url)
             embed.set_thumbnail(url=self.guild.icon_url)
             embed.set_image(url=self.guild.icon_url)
-            embed.set_footer(text="아아 살것 같다"); print("메시지 준비 완료")
+            embed.set_footer(text="아아 살것 같다")
 
-            await self.stdout.send(embed=embed); print("메시지 전송 완료")
+            await self.stdout.send(embed=embed)
             # 파일 전송
             # await channel.send(file=File("filepath"))
 

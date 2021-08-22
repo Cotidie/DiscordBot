@@ -19,7 +19,7 @@ class ActionCog(Cog):
     def show_notice(self):
         pass
 
-    @command(name="오늘의미션")
+    @command(name="오늘의미션", aliases=["오미"])
     async def show_today_event(self, ctx):
         """
             * 정보출처: https://mabi.sigkill.kr/todaymission/
@@ -29,7 +29,7 @@ class ActionCog(Cog):
                  "정보출처: https://mabi.sigkill.kr/ \n\n"
 
         # 오늘의 미션 정보 얻기
-        events = sigkill_scraper.get_today_events()
+        events = sigkill_scraper.get_today_events(); print("불러오기 완료")
         for event in events:
             result += event + "\n"
 

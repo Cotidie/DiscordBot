@@ -6,5 +6,6 @@
 > pip install aiosqlite  
 > pip install bs4  
 > pip install requests
-> pip install requests_html
 > pip install cssselect
+> pip install selenium
+* PhantomJS 다운로드 및 환경변수 등록
