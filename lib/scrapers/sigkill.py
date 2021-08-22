@@ -9,10 +9,10 @@ class SigKillScraper(Scraper):
         super().__init__()
 
     # 먼저 DB에 존재하는지 확인한다.
-    def try_today_events(self):
+    def try_today_missions(self):
         pass
 
-    def get_today_events(self):
+    def get_today_missions(self):
         # TODO: DB에 존재하는지 먼저 확인한다.
         # TODO: 존재하지 않으면 현재 메소드를 호출해 새로 파싱한다.
 
