@@ -5,6 +5,7 @@ from os.path import isfile          # 파일 존재 확인
 
 """
     실행 관련 환경설정
+    * TEST 환경에서는 lib.bot.__init__에서 전역변수를 TEST로 변경할 것
 """
 
 # MongoDB 주소 얻어오기
