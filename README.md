@@ -1,7 +1,7 @@
 # Discord Bot for 아늑
 
 ## Prerequisites
-> pip install discord.py  
+> pip install discord.py, discord-py-slash-command
 > pip install apscheduler  
 > pip install aiosqlite  
 > pip install bs4  

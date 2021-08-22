@@ -3,3 +3,6 @@
 - [ ] token.0 등 중요한 정보 DB로 옮기기
 - [ ] bot.__get_token 등 static 함수 helper 모듈로 재정의
 - [ ] scraper의 url 연결 실패 대처
+- [ ] slash command 적용 => [링크](https://discord-py-slash-command.readthedocs.io/en/latest/quickstart.html)
+- [ ] DB Collection의 필드명이 변경되면 코드 수정이 번거롭다. 통합할 방법을 찾아야 한다.
+        => 관계 파일: db.py, format.py
