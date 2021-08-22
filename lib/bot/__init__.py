@@ -23,11 +23,13 @@ GUILD       = CONFIG['GUILD']['TEST']
 
 class Bot(BotBase):
     def __init__(self):
-        self.guild = None  # 속할 서버
+        self.guild = None   # 속할 서버
+        self.stdout = None  # 메시지를 보낼 기본 채널
         self.ready = False
 
         self.db = DB                         # MongoDB
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
+        self.token = self.db.get_config("TOKEN_BOT")
 
         super().__init__(command_prefix=PREFIX,
                          owner_ids=OWNER_IDS,
@@ -38,14 +40,14 @@ class Bot(BotBase):
         self.setup()
 
         print("아늑 봇이 정신을 차리고 있습니다...")
-        super().run(self.db.get_config("TOKEN_BOT"), reconnect=True)
+        super().run(self.token, reconnect=True)
 
     # Cog 불러오기
     def setup(self):
         for cog in Bot.__get_cogs():
             self.load_extension(f"lib.cogs.{cog}")
-            print(f" {cog} cog loaded")
-        print("Setup Completed")
+            print(f" {cog} 코그 로딩 완료")
+        print("모든 코그를 로딩했습니다.")
 
     @staticmethod
     def __get_cogs():
@@ -59,14 +61,6 @@ class Bot(BotBase):
         filenames.remove("__init__")
 
         return filenames
-
-    @staticmethod
-    def __get_token():
-        token_path = CONFIG['PATH']['TOKEN']
-
-        # 토큰 획득
-        with open(token_path, "r", encoding="utf-8") as tf:
-            return tf.read()
 
     async def print_message(self):
         await self.stdout.send("1분마다 발송되는 메시지")
@@ -95,10 +89,10 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.stdout = self.get_channel(STDOUT)
+            self.stdout = self.get_channel(STDOUT); print("채널 로딩 완료")
 
             self.scheduler.start()
-            self.guild = self.get_guild(GUILD)
+            self.guild = self.get_guild(GUILD); print("서버 로딩 완료")
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())
@@ -110,9 +104,9 @@ class Bot(BotBase):
             embed.set_author(name="COTIDIE", icon_url=self.guild.icon_url)
             embed.set_thumbnail(url=self.guild.icon_url)
             embed.set_image(url=self.guild.icon_url)
-            embed.set_footer(text="아아 살것 같다")
+            embed.set_footer(text="아아 살것 같다"); print("메시지 준비 완료")
 
-            await self.stdout.send(embed=embed)
+            await self.stdout.send(embed=embed); print("메시지 전송 완료")
             # 파일 전송
             # await channel.send(file=File("filepath"))
 

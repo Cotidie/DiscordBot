@@ -30,7 +30,7 @@ CONFIG = {
             'STDOUT': 488672146990825474,     # 일반채팅룸
         },
         'TEST': {
-            'STDOUT': 878239436381495336,      # 일반채팅룸
+            'STDOUT': 878239436381495340,      # 일반채팅룸
         },
     },
     'PATH': {
@@ -43,7 +43,7 @@ CONFIG = {
     'DB': {
         'DEFAULT_HOST': HOST,
         'DEFAULT_COL': 'event',
-        'DEFAULT_DB': 'Discord',
+        'DEFAULT_DB': 'Anuk',
         'COLLECTIONS': {
             'CONFIG': 'config',
             'EVENT': 'event'
