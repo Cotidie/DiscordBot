@@ -16,7 +16,7 @@ else:
         HOST = file.read()
 
 CONFIG = {
-    'PREFIX': "!",
+    'PREFIX': "/",
     'GUILD': {
         'MAIN': 488672146990825472,           # 아늑 서버
         'TEST': 878239436381495336,
@@ -46,7 +46,8 @@ CONFIG = {
         'DEFAULT_DB': 'Anuk',
         'COLLECTIONS': {
             'CONFIG': 'config',
-            'EVENT': 'event'
+            'EVENT': 'event',
+            'EVENT_TODAY': 'event_today'
         }
     }
 }
