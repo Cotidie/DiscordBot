@@ -1,10 +1,11 @@
 import bs4.element
 import requests
-from selenium import webdriver
+from selenium                           import webdriver
+from selenium.webdriver.chrome.options  import Options
 
 
 class Scraper:
-    browser = webdriver.PhantomJS()  # 하나만 존재해야 한다.
+    browser = None  # 하나만 존재해야 한다.
 
     def __init__(self):
         pass
@@ -42,3 +43,18 @@ class Scraper:
             index += 1
 
         return index
+
+
+# Headless 크롬 브라우저를 실행한다.
+def initialize_browser():
+    # 브라우저 옵션 세팅
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--headless')
+
+    # 브라우저 초기화
+    Scraper.browser = webdriver.Chrome(options=chrome_options)
+
+
+initialize_browser()
