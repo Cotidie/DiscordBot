@@ -1,3 +1,5 @@
+import sys
+
 from datetime       import datetime
 from glob           import glob
 from config         import CONFIG  # 환경설정
@@ -5,15 +7,13 @@ from lib.db.db      import DB
 
 from discord                        import Intents, Embed, File
 from discord.ext.commands           import Bot as BotBase
-from discord.ext.commands           import CommandNotFound
+from discord.ext.commands           import CommandNotFound, command
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron      import CronTrigger
 
 """
-    * self.get_server(ID): 속한 서버, 하드코딩됨
-    * self.get_channel(ID): 속한 채널, 하드코딩됨
     * 리팩토링: ChatManager, ErrorHandler, Handlers > Event, Command
-    * 필요기능: 오늘의 이벤트, 
+    * 필요기능: 오늘의 이벤트
 """
 
 PREFIX      = CONFIG['PREFIX']
@@ -29,7 +29,7 @@ class Bot(BotBase):
 
         self.db = DB                         # MongoDB
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
-        self.token = self.db.get_config("TOKEN_BOT")
+        self.token = self.db.get_token(test=True)
 
         super().__init__(command_prefix=PREFIX,
                          owner_ids=OWNER_IDS,
@@ -119,6 +119,11 @@ class Bot(BotBase):
     async def on_message(self, message: str):
         # 명령어 탐지 및 실행
         await self.process_commands(message)
+
+    @command(name="서버종료")
+    async def quit(self):
+        sys.exit()
+
 
 
 # 봇 인스턴스 생성
