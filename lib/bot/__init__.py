@@ -2,6 +2,9 @@ import sys
 
 from datetime       import datetime
 from glob           import glob
+
+import discord
+
 from config         import CONFIG  # 환경설정
 from lib.db.db      import DB
 
@@ -91,21 +94,23 @@ class Bot(BotBase):
         if not self.ready:
             self.ready = True
             self.stdout = self.get_channel(STDOUT)
-
             self.scheduler.start()
             self.guild = self.get_guild(GUILD)
+
+            # ~하는 중 표시
+            my_activity = discord.Activity(type=discord.ActivityType.watching, name="학습")
+            await self.change_presence(activity=my_activity)
 
             embed = Embed(title="정신차림", description="아늑이가 깨어났습니다!",
                           color=0xFFDA00, timestamp=datetime.utcnow())
             fields = [("이름", "아늑이", True),
-                      ("기능", "아직없음", True),
+                      ("기능", "!오늘의미션", True),
                       ("헤헤", "히히", False)]
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
-            embed.set_author(name="COTIDIE", icon_url=self.guild.icon_url)
+            embed.set_author(name="아늑이", icon_url=self.guild.icon_url)
             embed.set_thumbnail(url=self.guild.icon_url)
             embed.set_image(url=self.guild.icon_url)
-            embed.set_footer(text="아아 살것 같다")
 
             await self.stdout.send(embed=embed)
             # 파일 전송
