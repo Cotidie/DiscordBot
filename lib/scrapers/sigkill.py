@@ -1,21 +1,32 @@
-from lib.scrapers.scraper import Scraper
 from bs4 import BeautifulSoup
-from config import CONFIG
+from datetime   import datetime
+
+from config                 import CONFIG
+from lib.scrapers.scraper   import Scraper
+from lib.db.db              import DB
 
 URL_SIGKILL = CONFIG['URL']['SIGKILL']
+
 
 class SigKillScraper(Scraper):
     def __init__(self):
         super().__init__()
 
     # 먼저 DB에 존재하는지 확인한다.
-    def try_today_missions(self):
-        pass
-
     def get_today_missions(self):
-        # TODO: DB에 존재하는지 먼저 확인한다.
-        # TODO: 존재하지 않으면 현재 메소드를 호출해 새로 파싱한다.
+        # DB에 이미 존재하는지 확인한다.
+        today = datetime.today().date()
+        missions = DB.get_today_missions(today)
+        if not missions:
+            # 스크레이핑 실행
+            missions = self.scrape_today_missions()
+            # DB에 저장
+            for mission in missions:
+                DB.insert_today_missions(today, mission)
 
+        return missions
+
+    def scrape_today_missions(self):
         html = self.get_html(URL_SIGKILL, dynamic=True)
         parser = BeautifulSoup(html, 'html.parser')
 

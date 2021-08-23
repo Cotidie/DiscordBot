@@ -29,7 +29,7 @@ class ActionCog(Cog):
                  "정보출처: https://mabi.sigkill.kr/ \n\n"
 
         # 오늘의 미션 정보 얻기
-        events = sigkill_scraper.get_today_missions(); print("불러오기 완료")
+        events = sigkill_scraper.get_today_missions()
         for event in events:
             result += event + "\n"
 
