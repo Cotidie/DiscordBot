@@ -3,9 +3,12 @@ import requests
 from selenium                           import webdriver
 from selenium.webdriver.chrome.options  import Options
 
+from lib.helpers.resource   import ResourceManager
+from lib.interfaces         import IClosable
+
 
 class Scraper:
-    browser = None  # 하나만 존재해야 한다.
+    browser = None  # 공용 브라우저
 
     def __init__(self):
         pass
@@ -45,16 +48,21 @@ class Scraper:
         return index
 
 
-# Headless 크롬 브라우저를 실행한다.
-def initialize_browser():
-    # 브라우저 옵션 세팅
-    chrome_options = Options()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--headless')
+class Browser(webdriver.Chrome, IClosable):
+    def __init__(self):
+        # 브라우저 옵션 세팅
+        chrome_options = Options()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--headless')
 
-    # 브라우저 초기화
-    Scraper.browser = webdriver.Chrome(options=chrome_options)
+        # 브라우저 초기화
+        super().__init__(options=chrome_options)
+
+    def close(self):
+        self.quit()
 
 
-initialize_browser()
+# 브라우저 생성 및 자원관리자에 추가
+Scraper.browser = Browser()
+ResourceManager.instance().add(Scraper.browser)

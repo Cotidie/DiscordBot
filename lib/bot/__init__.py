@@ -16,6 +16,7 @@ from apscheduler.triggers.cron      import CronTrigger
 from config         import CONFIG  # 환경설정
 from lib.db.db      import DB
 from lib.helpers.messanger import Messenger
+from lib.helpers.resource  import ResourceManager
 
 """
     * 리팩토링: ChatManager, ErrorHandler, Handlers > Event, Command
@@ -82,7 +83,7 @@ class Bot(BotBase):
 
     async def on_command_error(self, context, exception):
         if isinstance(exception, CommandNotFound):
-            await print("Wrong Command")
+            print("Wrong Command")
         elif hasattr(exception, "original"):
             raise exception.original
         else:
@@ -112,10 +113,6 @@ class Bot(BotBase):
     async def on_message(self, message: str):
         # 명령어 탐지 및 실행
         await self.process_commands(message)
-
-    @command(name="서버종료")
-    async def quit(self):
-        sys.exit()
 
     @staticmethod
     def __get_cogs():
