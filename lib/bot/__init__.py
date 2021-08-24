@@ -130,4 +130,4 @@ class Bot(BotBase):
 
 # 봇 인스턴스 생성
 bot = Bot()
-slash = SlashCommand(bot, sync_commands=True)
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
