@@ -1,32 +1,34 @@
-import asyncio
+# 스탠다드 라이브러리
+from datetime import date
+
 # discord.py
 from discord.ext.commands.cog import Cog
 from discord.ext.commands     import command
+from discord_slash            import cog_ext, SlashContext
 
 # 커스텀 객체
 from lib.scrapers.sigkill import sigkill_scraper
-from lib.bot              import slash, bot
+from lib.bot              import GUILD
 
 
 class ActionCog(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # 등록 클래스 정의 필요
-    @slash.slash(name="이벤트등록", guild_ids=[878239436381495336])
-    async def register_event(self, ctx):
-        await ctx.send("등록할 이벤트 입력")
+    # # 등록 클래스 정의 필요
+    # @cog_ext.cog_slash(name="이벤트등록", guild_ids=[878239436381495336])
+    # async def register_event(self, ctx):
+    #     await ctx.send("등록할 이벤트 입력")
 
     def show_notice(self):
         pass
 
-    @command(name="오늘의미션", aliases=["오미"])
-    async def show_today_event(self, ctx):
+    @cog_ext.cog_slash(name="오늘의미션", guild_ids=[GUILD])
+    async def show_today_event(self, ctx: SlashContext):
         """
-            * 정보출처: https://mabi.sigkill.kr/todaymission/
-            * 동작: 위 페이지를 스크레이핑하여 오늘의 미션 목록을 출력합니다.
+            오늘의 미션 목록을 불러올게요!
         """
-        result = "오늘의 미션 정보입니다. \n" + \
+        result = f"오늘의 미션 정보입니다. ({date.today()})\n" + \
                  "정보출처: https://mabi.sigkill.kr/ \n\n"
 
         # 오늘의 미션 정보 얻기
