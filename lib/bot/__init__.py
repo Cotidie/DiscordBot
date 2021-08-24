@@ -23,8 +23,8 @@ from lib.helpers.resource  import ResourceManager
     * 필요기능: 오늘의 이벤트
 """
 
-PREFIX      = CONFIG['PREFIX']
 OWNER_IDS   = CONFIG['OWNER_IDS']
+PREFIX      = CONFIG['PREFIX']['TEST']
 STDOUT      = CONFIG['CHANNEL']['TEST']['STDOUT']
 GUILD       = CONFIG['GUILD']['TEST']
 

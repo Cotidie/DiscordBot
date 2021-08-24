@@ -17,7 +17,10 @@ else:
         HOST = file.read()
 
 CONFIG = {
-    'PREFIX': "/",
+    'PREFIX': {
+        'MAIN': '/',
+        'TEST': '$$',
+    },
     'GUILD': {
         'MAIN': 488672146990825472,           # 아늑 서버
         'TEST': 878239436381495336,
