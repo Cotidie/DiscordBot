@@ -21,7 +21,7 @@ class Messenger:
         """
         # 상단 설명란
         desc = "에린 세계의 여러 잡일을 도맡아 해드리고 있어요.\n" + \
-               "제가 할 수 있는 일은 '!도와줘'를 통해 알 수 있어요. \n\n" + \
+               "채팅창에 '/'를 입력하면 저를 이용하실 수 있어요. \n\n" + \
                "제 해부도(?)를 보시려면 [여기](https://github.com/Cotidie/DiscordBot)를 클릭하세요.\n"
         embed = Embed(title="아늑이!", description=desc,
                       color=self.color)
@@ -31,7 +31,7 @@ class Messenger:
 
         # 각 필드
         fields = [("이름", "아늑이", True),
-                  ("기능", "채팅창 '/'", True),
+                  ("기능", "정보수집", True),
                   ("나이", f"{my_age.days}일", True),
                   ("성장중", "아직 성장중이에요.\n성숙할 수 있도록 많은 아이디어 부탁드려요.", False)]
         for name, value, inline in fields:
