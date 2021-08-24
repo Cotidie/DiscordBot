@@ -31,7 +31,7 @@ class Messenger:
 
         # 각 필드
         fields = [("이름", "아늑이", True),
-                  ("기능", "!도와줘", True),
+                  ("기능", "채팅창 '/'", True),
                   ("나이", f"{my_age.days}일", True),
                   ("성장중", "아직 성장중이에요.\n성숙할 수 있도록 많은 아이디어 부탁드려요.", False)]
         for name, value, inline in fields:
@@ -41,7 +41,7 @@ class Messenger:
         embed.set_thumbnail(url=self.image)
 
         # 꼬리말
-        embed.set_footer(text="아늑이 - ALPHA")
+        embed.set_footer(text="아늑이 by 코티디에 - ALPHA")
 
         return embed
 
