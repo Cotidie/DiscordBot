@@ -1,5 +1,8 @@
 import datetime as dt
 
+"""
+    파이썬 자료형을 정해진 형식으로 바꾸어주는 클래스
+"""
 
 class Formatter:
     def __init__(self):

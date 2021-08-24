@@ -5,6 +5,7 @@ from discord.ext.commands     import command
 
 # 커스텀 객체
 from lib.scrapers.sigkill import sigkill_scraper
+from lib.bot              import slash, bot
 
 
 class ActionCog(Cog):
@@ -12,7 +13,7 @@ class ActionCog(Cog):
         self.bot = bot
 
     # 등록 클래스 정의 필요
-    @command(name="이벤트등록", aliases=["이벤트_등록"])
+    @slash.slash(name="이벤트등록", guild_ids=[878239436381495336])
     async def register_event(self, ctx):
         await ctx.send("등록할 이벤트 입력")
 
