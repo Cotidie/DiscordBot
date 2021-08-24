@@ -1,6 +1,7 @@
 import sys                          # 강제종료
 
 from os.path import isfile          # 파일 존재 확인
+from datetime import date
 
 
 """
@@ -49,5 +50,10 @@ CONFIG = {
             'EVENT': 'event',
             'EVENT_TODAY': 'event_today'
         }
+    },
+    'BOT': {
+        'COLOR': 0x762b88,
+        'BIRTH': date(2021, 8, 21),
+        'IMAGE': 'https://discord.com/channels/488672146990825472/488672146990825474/879359498974814239'
     }
 }
