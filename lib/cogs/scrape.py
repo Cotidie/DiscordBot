@@ -11,7 +11,7 @@ from lib.scrapers.sigkill import sigkill_scraper
 from lib.bot              import GUILD
 
 
-class ActionCog(Cog):
+class ScrapeCog(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -51,4 +51,4 @@ class ActionCog(Cog):
         pass
 
 def setup(bot):
-    bot.add_cog(ActionCog(bot))
+    bot.add_cog(ScrapeCog(bot))
