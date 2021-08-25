@@ -6,9 +6,9 @@ from pymongo import MongoClient, errors, collection
 from apscheduler.triggers.cron import CronTrigger
 
 # 커스텀
-from config import CONFIG
-from lib.helpers.format import Formatter
+from config             import CONFIG
 from lib.db.collections import *
+from lib.helpers        import Formatter
 
 """
     * 차후 이벤트, 정보 등으로 분리할 필요 있음.
@@ -27,10 +27,15 @@ class DataBase(MongoClient):
             collection (str, optional): Collection 이름. Defaults to DEFAULT_COL
     """
     def __init__(self, host=DEFAULT_HOST, db=DEFAULT_DB):
-        self.db = db                    # DB명
-        self.cols = {}           # 콜렉션
+        super().__init__(host)
+
+        self.db = self[db]
+        self.cols = {
+            COLLECTIONS['EVENT_TODAY']: EventToday(self.db, COLLECTIONS['EVENT_TODAY']),
+            COLLECTIONS['RAID_INFO']: RaidInfo(self.db, COLLECTIONS['RAID_INFO']),
+            COLLECTIONS['RAID_TIME']: RaidTime(self.db, COLLECTIONS['RAID_TIME'])
+        }
         self.host = host         # DB 호스트 명
-        super().__init__(self.host)
 
     def get_collection(self, name) -> collection.Collection:
         """데이터베이스에서 원하는 pymongo collection을 가져온다
@@ -40,12 +45,18 @@ class DataBase(MongoClient):
                 pymongo.erros.CollectionInvalid: 잘못된 Collection 이름
         """
         name = name.upper()
+
+        # Wrapper 클래스가 있으면 Wrapper로 반환
+        if name in self.cols:
+            return self.cols[name]
+
         if name not in COLLECTIONS:
             print("콜렉션 이름이 잘못되었으므로 확인해주세요")
             print("콜렉션 이름은 config.py안의 COLLECTIONS에 저장되어 있습니다")
             raise errors.CollectionInvalid("콜렉션{" + name + "} 이름이 잘못되었습니다")
 
-        return self[self.db][COLLECTIONS[name]]
+        # 기본 콜렉션 객체
+        return self.db[COLLECTIONS[name]]
 
     def get_config(self, name):
         """DB에 저장된 환경값을 불러온다.
@@ -103,7 +114,7 @@ class DataBase(MongoClient):
         collection = self.get_collection(COLLECTIONS['EVENT_TODAY'])
 
         # 날짜를 문자열로 변환
-        date_str = Formatter.get_date_string(date)
+        date_str = bot.formatter.get_date_string(date)
 
         data = {
             'date': date_str,
@@ -116,5 +127,8 @@ class DataBase(MongoClient):
             print("저장에 실패했습니다.")
             print(e)
 
+    # raid_info.py로 이동
+    def get_raid_bosses(self):
+        return self.cols[COLLECTIONS['RAID_INFO']].get_raid_bosses()
 
 DB = DataBase()
