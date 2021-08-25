@@ -28,8 +28,6 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 ## Features(Commands)
 : These commands are also visible from the slash(/) prompt on Discord.
 * **'/오늘의미션'**
-  * Aliases: '오미'
   * Feature: Scrape daily missions from sigkill.kr
-* **'/레이드정보'**
-  * Aliases: '레이드'
+* **'/레이드'**
   * Feature: 
