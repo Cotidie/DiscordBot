@@ -49,8 +49,10 @@ CONFIG = {
         'DEFAULT_DB': 'Anuk',
         'COLLECTIONS': {
             'CONFIG': 'config',
-            'EVENT': 'event',
-            'EVENT_TODAY': 'event_today'
+            'EVENT_TODAY': 'event_today',
+            'RAID_ID': 'raid_id',
+            'RAID_INFO': 'raid_info',
+            'RAID_TIME': 'raid_time',
         }
     },
     'BOT': {
