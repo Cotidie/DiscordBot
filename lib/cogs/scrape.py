@@ -74,7 +74,14 @@ class ScrapeCog(Cog):
         """
             레이드 보스 정보를 불러올게요!
         """
-        boss_info = self.bot.db.get_
+        if boss == "현재":
+            await ctx.send("아직 이 기능은 지원하지 않아요 ;_;")
+            return
+
+        boss_info = self.bot.db.get_raid_boss(boss)
+        embed = self.bot.messenger.embed_raid_info(boss_info)
+
+        await ctx.send(embed=embed)
 
     def show_official_notice(self):
         pass

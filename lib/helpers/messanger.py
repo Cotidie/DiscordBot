@@ -47,3 +47,38 @@ class Messenger:
 
     def change_status(self, state):
         pass
+
+    def embed_raid_info(self, boss: dict):
+        """
+         레이드 보스의 정보를 디스코드 Embed로 가공한다
+        :param boss: (dict) 필드 정보는 MongoDB > raid_info 컬렉션에서 확인 가능
+        :return: (discord.Embed) 보스 정보가 담긴 embed
+        """
+        from lib.helpers import Formatter   # Circular import 문제. 구조 수정할 필요 있음.
+
+        embed = Embed(title="레이드 보스 정보")
+        embed.set_author(name=boss['name'], icon_url=boss['icon'])
+        embed.set_footer(text=f"기준일 - {boss['update']}")
+
+        # 출현 시간
+        weekday = Formatter.make_unordered_list(boss['weekday'])
+        weekend = Formatter.make_unordered_list(boss['weekend'])
+        rewards = Formatter.make_unordered_list(boss['reward'])
+
+        # 필드  추가
+        fields = [
+            ("출현지역", boss['location'], False),
+            ("주중(월~금)", weekday, True),
+            ("주말(토,일)", weekend, True),
+            ("주요 보상", rewards, False),
+            ("참고 링크", f"[싴갤러스]({boss['link']})", False)
+        ]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        # 이미지 추가
+        embed.set_thumbnail(url=boss['icon'])
+        embed.set_image(url=boss['map'][0])
+
+        return embed
