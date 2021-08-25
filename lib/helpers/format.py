@@ -6,9 +6,6 @@ import datetime as dt
 
 
 class Formatter:
-    def __init__(self):
-        pass
-
     @staticmethod
     def get_date_string(date):
         """
