@@ -5,8 +5,8 @@ from discord.ext.commands     import command
 from discord_slash            import cog_ext, SlashContext
 
 # 커스텀
-from lib.helpers.resource import ResourceManager
-from lib.bot              import GUILD
+from lib.helpers import ResourceManager
+from lib.bot     import GUILD
 
 
 class BotCog(Cog):

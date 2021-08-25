@@ -14,9 +14,8 @@ from apscheduler.triggers.cron      import CronTrigger
 
 # 커스텀 모듈
 from config         import CONFIG  # 환경설정
-from lib.db.db      import DB
-from lib.helpers.messanger import Messenger
-from lib.helpers.resource  import ResourceManager
+from lib.db         import DB
+from lib.helpers    import Messenger, Formatter, ResourceManager
 
 """
     * 리팩토링: ChatManager, ErrorHandler, Handlers > Event, Command
@@ -42,9 +41,8 @@ class Bot(BotBase):
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
         self.token = self.db.get_token(test=True)
 
-        # 헬퍼 객체들
+        # 헬퍼 객체
         self.messenger = Messenger(self)   # 채팅 메시지 생성
-        self.formatter = None              # 파이썬 문자열 가공
 
         super().__init__(command_prefix=PREFIX,
                          owner_ids=OWNER_IDS,
