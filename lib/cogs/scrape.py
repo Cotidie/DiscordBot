@@ -71,7 +71,10 @@ class ScrapeCog(Cog):
                        guild_ids=[GUILD],
                        options=[create_raid_option()])
     async def show_raid_info(self, ctx: SlashContext, boss: str):
-        print(boss)
+        """
+            레이드 보스 정보를 불러올게요!
+        """
+        boss_info = self.bot.db.get_
 
     def show_official_notice(self):
         pass

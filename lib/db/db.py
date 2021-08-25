@@ -114,7 +114,7 @@ class DataBase(MongoClient):
         collection = self.get_collection(COLLECTIONS['EVENT_TODAY'])
 
         # 날짜를 문자열로 변환
-        date_str = bot.formatter.get_date_string(date)
+        date_str = Formatter.get_date_string(date)
 
         data = {
             'date': date_str,
@@ -127,8 +127,17 @@ class DataBase(MongoClient):
             print("저장에 실패했습니다.")
             print(e)
 
-    # raid_info.py로 이동
     def get_raid_bosses(self):
+        """
+        :return: (list) 레이드 보스 리스트
+        """
         return self.cols[COLLECTIONS['RAID_INFO']].get_raid_bosses()
+
+    def get_raid_boss(self, boss):
+        """
+        :param boss: (str) 찾고자 하는 보스명
+        :return: (dict) DB에 있는 보스 정보 반환
+        """
+        return self.cols[COLLECTIONS['RAID_INFO']].get_raid_boss(boss)
 
 DB = DataBase()

@@ -33,3 +33,12 @@ class RaidInfo(Collection):
 
         return self.bosses
 
+    def get_raid_boss(self, boss: str):
+        """
+        :param boss: (str) 찾고자 하는 보스명
+        :return: (dict) 결과 딕셔너리. 없으면 None 반환
+        """
+        my_query = {'name': boss}
+
+        return self.find_one(my_query)
+
