@@ -31,3 +31,13 @@ class Formatter:
             result.append(mission['event'])
 
         return result
+
+    @staticmethod
+    def make_unordered_list(msgs: list):
+        """
+        리스트에 담긴 문자열들을 순서 없는 목록 형식으로 가공한다.
+        :param msgs: (list) 목록 문자열을 만들 리스트
+        :return: (str) 가공된 문자열
+        """
+        starred = list(map(lambda x: "- " + x, msgs))
+        return '\n'.join(starred)
