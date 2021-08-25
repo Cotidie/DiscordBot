@@ -2,14 +2,25 @@ import sys
 # discord.py
 from discord.ext.commands.cog import Cog
 from discord.ext.commands     import command
+from discord_slash            import cog_ext, SlashContext
 
 # 커스텀
 from lib.helpers.resource import ResourceManager
+from lib.bot              import GUILD
 
 
 class BotCog(Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @cog_ext.cog_slash(name="자기소개", guild_ids=[GUILD])
+    async def introduce(self, ctx: SlashContext):
+        """
+            저를 소개할게요!
+        """
+        embed = self.bot.messenger.introduce_self()
+
+        await ctx.send(embed)
 
     @command(name="서버종료")
     async def quit(self, ctx):
