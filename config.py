@@ -46,7 +46,6 @@ CONFIG = {
     },
     'DB': {
         'DEFAULT_HOST': HOST,
-        'DEFAULT_COL': 'event',
         'DEFAULT_DB': 'Anuk',
         'COLLECTIONS': {
             'CONFIG': 'config',

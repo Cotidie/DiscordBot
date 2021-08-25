@@ -1,18 +1,20 @@
-from os.path import isfile
+# 스탠다드
+from enum   import Enum
+
+# 서드파티
 from pymongo import MongoClient, errors, collection
 from apscheduler.triggers.cron import CronTrigger
+
+# 커스텀
 from config import CONFIG
-from enum import Enum
-from datetime import datetime
-import datetime as dt
 from lib.helpers.format import Formatter
+from lib.db.collections import *
 
 """
     * 차후 이벤트, 정보 등으로 분리할 필요 있음.
 """
 
 DEFAULT_HOST = CONFIG['DB']['DEFAULT_HOST']
-DEFAULT_COL = CONFIG['DB']['DEFAULT_COL']
 DEFAULT_DB = CONFIG['DB']['DEFAULT_DB']
 COLLECTIONS = CONFIG['DB']['COLLECTIONS']
 
@@ -24,13 +26,13 @@ class DataBase(MongoClient):
             db (str, optional): DB 이름. Defaults to DEFAULT_DB.
             collection (str, optional): Collection 이름. Defaults to DEFAULT_COL
     """
-    def __init__(self, host=DEFAULT_HOST, db=DEFAULT_DB, collection=DEFAULT_COL):
+    def __init__(self, host=DEFAULT_HOST, db=DEFAULT_DB):
         self.db = db                    # DB명
-        self.col = collection           # Collection명
+        self.cols = {}           # 콜렉션
         self.host = host         # DB 호스트 명
         super().__init__(self.host)
 
-    def get_collection(self, name=DEFAULT_COL) -> collection.Collection:
+    def get_collection(self, name) -> collection.Collection:
         """데이터베이스에서 원하는 pymongo collection을 가져온다
         Args:
                 name (str): COLLECTIONS 배열안에 정의된 이름만 가능
