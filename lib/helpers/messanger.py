@@ -56,7 +56,7 @@ class Messenger:
         """
         from lib.helpers import Formatter   # Circular import 문제. 구조 수정할 필요 있음.
 
-        embed = Embed(title="레이드 보스 정보")
+        embed = Embed(title="레이드 보스 정보", color=self.color)
         embed.set_author(name=boss['name'], icon_url=boss['icon'])
         embed.set_footer(text=f"기준일 - {boss['update']}")
 
@@ -67,11 +67,11 @@ class Messenger:
 
         # 필드  추가
         fields = [
-            ("출현지역", boss['location'], False),
-            ("주중(월~금)", weekday, True),
-            ("주말(토,일)", weekend, True),
-            ("주요 보상", rewards, False),
-            ("참고 링크", f"[싴갤러스]({boss['link']})", False)
+            (":map: 출현지역", boss['location'], False),
+            (":calendar: 주중(월~금)", weekday, True),
+            (":calendar: 주말(토,일)", weekend, True),
+            (":moneybag: 주요 보상", rewards, False),
+            (":link: 참고 링크", f"[싴갤러스]({boss['link']})", False)
         ]
 
         for name, value, inline in fields:
