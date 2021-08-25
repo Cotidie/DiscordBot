@@ -1,8 +1,9 @@
 import datetime as dt
 
 """
-    파이썬 자료형을 정해진 형식으로 바꾸어주는 클래스
+    각종 자료형을 이용하기 쉽게 바꾸어주는 클래스
 """
+
 
 class Formatter:
     def __init__(self):
@@ -22,7 +23,7 @@ class Formatter:
             return str(date.date())
 
     @staticmethod
-    def missions_to_list(missions:list):
+    def missions_to_list(missions: list):
         """
         오늘의미션 쿼리 탐색 결과를 문자열로 가공한다.
         :param missions: MongoDB find로부터 얻은 결과

@@ -50,5 +50,6 @@ class ScrapeCog(Cog):
     def show_guild_event(self):
         pass
 
+
 def setup(bot):
     bot.add_cog(ScrapeCog(bot))

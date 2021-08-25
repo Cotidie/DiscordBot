@@ -18,9 +18,9 @@ class BotCog(Cog):
         """
             저를 소개할게요!
         """
-        embed = self.bot.messenger.introduce_self()
+        intro = self.bot.messenger.introduce_self()
 
-        await ctx.send(embed)
+        await ctx.send(embed=intro)
 
     @command(name="서버종료")
     async def quit(self, ctx):
