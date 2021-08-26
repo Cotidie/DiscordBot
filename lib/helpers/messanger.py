@@ -61,9 +61,9 @@ class Messenger:
         embed.set_footer(text=f"기준일 - {boss['update']}")
 
         # 출현 시간
-        weekday = Formatter.make_unordered_list(boss['weekday'])
-        weekend = Formatter.make_unordered_list(boss['weekend'])
-        rewards = Formatter.make_unordered_list(boss['reward'])
+        weekday = Formatter.make_unordered_list(boss['weekday'], "-")
+        weekend = Formatter.make_unordered_list(boss['weekend'], "-")
+        rewards = Formatter.make_unordered_list(boss['reward'], "-")
 
         # 필드  추가
         fields = [

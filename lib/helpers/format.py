@@ -33,11 +33,12 @@ class Formatter:
         return result
 
     @staticmethod
-    def make_unordered_list(msgs: list):
+    def make_unordered_list(msgs: list, shape):
         """
         리스트에 담긴 문자열들을 순서 없는 목록 형식으로 가공한다.
         :param msgs: (list) 목록 문자열을 만들 리스트
+        :param shape: (char or str) 매 줄 앞에 표시할 문자
         :return: (str) 가공된 문자열
         """
-        starred = list(map(lambda x: "- " + x, msgs))
+        starred = list(map(lambda x: f"{shape} " + x, msgs))
         return '\n'.join(starred)
