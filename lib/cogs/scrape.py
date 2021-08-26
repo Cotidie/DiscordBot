@@ -8,7 +8,7 @@ from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option, create_choice
 
 # 커스텀 객체
-from lib.scrapers.sigkill import sigkill_scraper
+from lib.scrapers   import sigkill_scraper, chic_scraper
 from lib.bot import GUILD
 from lib.db import DB
 
@@ -74,6 +74,9 @@ class ScrapeCog(Cog):
         """
             레이드 보스 정보를 불러올게요!
         """
+        # 진행중인 레이드이면 제보된 채널을 스크레이핑한다.
+        # '현재'를 선택했는데 진행중인 레이드가 없으면 다음 레이드를 알린다
+        # '현재'를 선택했는데 진행중인 레이드가 여러 개이면 페이지 기능을 활용한다
         if boss == "현재":
             await ctx.send("아직 이 기능은 지원하지 않아요 ;_;")
             return
@@ -95,6 +98,13 @@ class ScrapeCog(Cog):
     def show_guild_event(self):
         pass
 
+    @command(name="레이드동기화")
+    async def syncronize_raid_time(self):
+        """
+         싴갤러스의 레이드 시간표와 DB를 동기화한다.
+        :return: None
+        """
+        chic_scraper.syncronize_raid_time()
 
 def setup(bot):
     bot.add_cog(ScrapeCog(bot))
