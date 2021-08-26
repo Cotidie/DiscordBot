@@ -1,5 +1,5 @@
 # 스탠다드 라이브러리
-from datetime import date
+from datetime import date, datetime
 
 # discord.py
 from discord.ext.commands.cog import Cog
@@ -77,8 +77,17 @@ class ScrapeCog(Cog):
         # 진행중인 레이드이면 제보된 채널을 스크레이핑한다.
         # '현재'를 선택했는데 진행중인 레이드가 없으면 다음 레이드를 알린다
         # '현재'를 선택했는데 진행중인 레이드가 여러 개이면 페이지 기능을 활용한다
+        now = datetime.now()
+
         if boss == "현재":
-            await ctx.send("아직 이 기능은 지원하지 않아요 ;_;")
+            bosses = self.bot.db.get_current_raids(time=now)
+            if not bosses:
+                message = "현재 진행중인 레이드가 없어요 ;_; \n"
+                await ctx.send(message)
+                return
+
+            message = f"현재 {', '.join(bosses)} 출현시간입니다."
+            await ctx.send(message)
             return
 
         boss_info = self.bot.db.get_raid_boss(boss)
