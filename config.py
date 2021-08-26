@@ -42,7 +42,9 @@ CONFIG = {
     },
     'URL': {
         'SIGKILL': 'https://mabi.sigkill.kr/todaymission/',
-        'CHIC': 'https://lute.fantazm.net/today_mission',
+        'CHIC': {
+            'RAID_TIME': 'https://lute.fantazm.net/raid2',
+        },
     },
     'DB': {
         'DEFAULT_HOST': HOST,
