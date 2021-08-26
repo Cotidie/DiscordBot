@@ -1,6 +1,3 @@
-# 스탠다드
-from enum   import Enum
-
 # 서드파티
 from pymongo import MongoClient, errors, collection
 from apscheduler.triggers.cron import CronTrigger
@@ -139,5 +136,25 @@ class DataBase(MongoClient):
         :return: (dict) DB에 있는 보스 정보 반환
         """
         return self.cols[COLLECTIONS['RAID_INFO']].get_raid_boss(boss)
+
+    def get_current_raids(self, time):
+        """
+         현재 진행중인 레이드 보스 목록을 반환
+        :param time: (datetime.datetime) 현재 날짜와 시간
+        :return: (list) 레이드 보스명 리스트
+        """
+        return self.cols[COLLECTIONS['RAID_TIME']].get_current_raids(time)
+
+    def syncronize_raid_time(self, boss: str, start_time: str, end_time: str, weekday: bool):
+        """
+        DB의 시간표를 해당 보스 정보로 채웁니다.
+        :param boss: (str) 레이드 보스명
+        :param start_time: (str) hh:mm 형식의 시작 시간
+        :param end_time: (str) hh:mm 형식의 끝 시간
+        :param weekday: (bool) 주중 여부
+        :return: None
+        """
+        self.cols[COLLECTIONS['RAID_TIME']].syncronize_raid_time(boss, start_time, end_time, weekday)
+
 
 DB = DataBase()
