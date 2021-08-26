@@ -86,3 +86,13 @@ class RaidTime(Collection):
 
     def update_raid_time(self, time: str, raid: str, until: str, weekday: bool):
         pass
+
+    def clear_all(self):
+        # 모든 항목의 raid, until을 비운다.
+        self.update_many({}, { '$set': {
+            'raid': "",
+            'until': 0
+        }})
+
+        print("raid_time 컬렉션 정리 완료")
+
