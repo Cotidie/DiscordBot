@@ -1,8 +1,4 @@
-# 스탠다드 라이브러리
-from datetime import date, datetime
-
 # 서드파티
-import pytz
 from discord.ext.commands.cog import Cog
 from discord.ext.commands import command
 from discord_slash import cog_ext, SlashContext
@@ -12,6 +8,7 @@ from discord_slash.utils.manage_commands import create_option, create_choice
 from lib.scrapers   import sigkill_scraper, chic_scraper
 from lib.db         import DB
 from lib.bot        import GUILDS
+from lib.helpers    import Formatter
 
 
 # 관련 메소드가 많아지면 helper > option.py로 분리
@@ -58,10 +55,9 @@ class ScrapeCog(Cog):
         """
             오늘의 미션 목록을 불러올게요!
         """
-        KST = pytz.timezone('Asia/Seoul')
-        today = datetime.now(KST).date()
+        today = Formatter.get_korean_time('date')
 
-        result = f"오늘의 미션 정보입니다. ({date.today()})\n" + \
+        result = f"오늘의 미션 정보입니다. ({today})\n" + \
                  "정보출처: https://mabi.sigkill.kr/ \n\n"
 
         # 오늘의 미션 정보 얻기
@@ -82,8 +78,7 @@ class ScrapeCog(Cog):
         # 진행중인 레이드이면 제보된 채널을 스크레이핑한다.
         # '현재'를 선택했는데 진행중인 레이드가 없으면 다음 레이드를 알린다
         # '현재'를 선택했는데 진행중인 레이드가 여러 개이면 페이지 기능을 활용한다
-        KST = pytz.timezone('Asia/Seoul')
-        now = datetime.now(KST)
+        now = Formatter.get_korean_time('datetime')
 
         if boss == "현재":
             bosses = self.bot.db.get_current_raids(time=now)
