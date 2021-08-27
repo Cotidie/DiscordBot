@@ -1,4 +1,5 @@
 import datetime as dt
+import pytz
 
 """
     각종 자료형을 이용하기 쉽게 바꾸어주는 클래스
@@ -42,3 +43,21 @@ class Formatter:
         """
         starred = list(map(lambda x: f"{shape} " + x, msgs))
         return '\n'.join(starred)
+
+    @staticmethod
+    def get_korean_time(type_name: str):
+        """
+        시간대에 관계없이 한국 시간을 반환한다.
+        :param type_name: datetime 또는 date
+        :return: datetime.datetime || datetime.date
+        """
+        ltype = type_name.lower()
+        if ltype not in ['datetime', 'date']:
+            raise ValueError("type 인자는 datetime, date 중 하나여야 합니다.")
+
+        kst = pytz.timezone('Asia/Seoul')
+        k_now = dt.datetime.now(kst)
+        if ltype == 'datetime':
+            return k_now
+        elif ltype == 'date':
+            return k_now.date()
