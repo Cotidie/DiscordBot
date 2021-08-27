@@ -52,10 +52,5 @@ CONFIG = {
             'RAID_INFO': 'raid_info',
             'RAID_TIME': 'raid_time',
         }
-    },
-    'BOT': {
-        'COLOR': 0x762b88,
-        'BIRTH': date(2021, 8, 21),
-        'IMAGE': 'https://discord.com/channels/488672146990825472/488672146990825474/879359498974814239'
     }
 }

@@ -2,6 +2,8 @@ from discord import Embed
 from config import CONFIG
 from datetime import date
 
+from lib.db.collections import ConfKeys
+
 """
     봇의 디스코드 채팅을 위한 메시지 빌더
     정해진 형식의 Embed, 문자열 등을 정의합니다.
@@ -11,8 +13,8 @@ from datetime import date
 class Messenger:
     def __init__(self, bot):
         self.bot = bot
-        self.color = CONFIG['BOT']['COLOR']
-        self.image = CONFIG['BOT']['IMAGE']
+        self.color = self.bot.db.get_config(ConfKeys.Color)
+        self.image = self.bot.db.get_config(ConfKeys.Thumbnail)
 
     def introduce_self(self):
         """

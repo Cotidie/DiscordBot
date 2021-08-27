@@ -1,6 +1,7 @@
 # 스탠다드 라이브러리
 import os           # 실행중인 os 종류
 from glob           import glob
+from datetime       import datetime
 
 # 서드파티 라이브러리
 import discord
@@ -12,9 +13,10 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron      import CronTrigger
 
 # 커스텀 모듈
-from config         import CONFIG  # 환경설정
-from lib.db         import DB
-from lib.helpers    import Messenger, Formatter, ResourceManager
+from config             import CONFIG  # 환경설정
+from lib.db             import DB
+from lib.db.collections import ConfKeys
+from lib.helpers        import Messenger, Formatter
 
 """
     * 리팩토링: ChatManager, ErrorHandler, Handlers > Event, Command
@@ -27,7 +29,7 @@ class Bot(BotBase):
     def __init__(self, test: bool=False):
         # 봇 기본정보
         self.test = test
-        self.birth = CONFIG['BOT']['BIRTH']  # 만든 날짜
+        self.birth = datetime.strptime(DB.get_config(ConfKeys.Birth), "%Y-%m-%d").date()
         self.owners = CONFIG['OWNER_IDS']
         self.prefix = CONFIG['PREFIX']['TEST'] if test else CONFIG['PREFIX']['MAIN']
 
@@ -102,7 +104,7 @@ class Bot(BotBase):
 
             # 인사말 전송
             intro = self.messenger.introduce_self()
-            # await self.stdout.send(embed=intro)
+            await self.stdout.send(embed=intro)
 
             print("아늑이가 준비를 마쳤습니다!")
         else:
