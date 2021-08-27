@@ -1,5 +1,4 @@
 from discord import Embed
-from config import CONFIG
 from datetime import date
 
 from lib.db.collections import ConfKeys
