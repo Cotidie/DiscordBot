@@ -13,9 +13,8 @@ class SigKillScraper(Scraper):
         super().__init__()
 
     # 먼저 DB에 존재하는지 확인한다.
-    def get_today_missions(self):
+    def get_today_missions(self, today):
         # DB에 이미 존재하는지 확인한다.
-        today = datetime.today().date()
         missions = DB.get_today_missions(today)
         if not missions:
             # 스크레이핑 실행
