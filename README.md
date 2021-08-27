@@ -17,10 +17,10 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 > bs4  
 > cssselect   
 > selenium  
-> pymongo, pymongo[srv]
+> pymongo, pymongo[srv]  
+> pytz
 > 
 ### Environment Setting
-* Must add PhantomJS executable's path to $PATH
 * 'db_host.0' file must be present in the root directory. Ask admin of this file.
 * For Windows, make sure you added chromedriver.exe's path to $PATH
 * You should provide the bot your Naver ID & PW via Env variables NAVER_ID, NAVER_PW. Also the account should be a member of '마시카' Naver cafe.
@@ -30,4 +30,5 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 * **'/오늘의미션'**
   * Feature: Scrape daily missions from sigkill.kr
 * **'/레이드'**
-  * Feature: 
+  * Options: '현재' and raid boss names.
+  * Feature: Show raid info of each boss. If the option is '현재', a list of raids currently in progress will be displayed.
