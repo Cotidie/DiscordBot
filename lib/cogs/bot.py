@@ -6,14 +6,14 @@ from discord_slash            import cog_ext, SlashContext
 
 # 커스텀
 from lib.helpers import ResourceManager
-from lib.bot     import GUILD
+from lib.bot     import GUILDS
 
 
 class BotCog(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_slash(name="자기소개", guild_ids=[GUILD])
+    @cog_ext.cog_slash(name="자기소개", guild_ids=GUILDS)
     async def introduce(self, ctx: SlashContext):
         """
             저를 소개할게요!
