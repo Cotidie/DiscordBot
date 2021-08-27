@@ -74,6 +74,22 @@ class DataBase(MongoClient):
 
         return res['value']
 
+    def set_config(self, name, value):
+        """
+         config 컬렉션에 환경설정값을 추가하거나 변경한다.
+        :param name: 환경설정 이름
+        :param value: 환경설정값
+        :return: None
+        """
+        collection = self.get_collection(COLLECTIONS['CONFIG'])
+
+        my_query = {'variable': name}
+        my_update = {'$set': {
+            'value': value
+        }}
+
+        return collection.update_one(my_query, my_update, upsert=True)
+
     # 운영/테스트 용 토큰을 구분하여 가져온다.
     def get_token(self, test=False):
         if test:
