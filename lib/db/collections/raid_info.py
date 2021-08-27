@@ -14,7 +14,7 @@ from pymongo.collection import Collection
 
 
 class RaidInfo(Collection):
-    def __init__(self, db, col: Collection):
+    def __init__(self, db, col):
         super().__init__(db, col)
         self.bosses = None
 
