@@ -1,13 +1,12 @@
 # 스탠다드 라이브러리
-import sys
-from datetime       import datetime
+import os           # 실행중인 os 종류
 from glob           import glob
 
 # 서드파티 라이브러리
 import discord
-from discord                        import Intents, Embed, File
+from discord                        import Intents
 from discord.ext.commands           import Bot as BotBase
-from discord.ext.commands           import CommandNotFound, command
+from discord.ext.commands           import CommandNotFound
 from discord_slash                  import SlashCommand
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron      import CronTrigger
@@ -118,8 +117,10 @@ class Bot(BotBase):
     def __get_cogs():
         cog_path = CONFIG['PATH']['COGS'] + "*.py"
 
+        delimiter = "\\" if os.name == 'nt' else '/'
+
         # .py cog 파일 가져오기
-        filenames = [path.split("\\")[-1] for path in glob(cog_path)]
+        filenames = [path.split(delimiter)[-1] for path in glob(cog_path)]
         # .py 제거
         filenames = list(map(lambda f: f[:-3], filenames))
         # __init__ 제거
