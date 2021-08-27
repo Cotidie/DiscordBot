@@ -22,30 +22,29 @@ from lib.helpers    import Messenger, Formatter, ResourceManager
     * 필요기능: 오늘의 이벤트
 """
 
-OWNER_IDS   = CONFIG['OWNER_IDS']
-PREFIX      = CONFIG['PREFIX']['TEST']
-STDOUT      = CONFIG['CHANNEL']['TEST']['STDOUT']
-GUILD       = CONFIG['GUILD']['TEST']
+GUILDS = DB.get_config('guilds')
 
 class Bot(BotBase):
-    def __init__(self):
+    def __init__(self, test: bool=False):
         # 봇 기본정보
+        self.test = test
         self.birth = CONFIG['BOT']['BIRTH']  # 만든 날짜
+        self.owners = CONFIG['OWNER_IDS']
+        self.prefix = CONFIG['PREFIX']['TEST'] if test else CONFIG['PREFIX']['MAIN']
 
         # 환경설정
-        self.guild = None   # 속할 서버
-        self.stdout = None  # 메시지를 보낼 기본 채널
+        self.stdout = CONFIG['CHANNEL']['TEST']['STDOUT'] if test else CONFIG['CHANNEL']['MAIN']['STDOUT']
         self.ready = False  # 모든 준비 완료 신호
 
         self.db = DB                         # MongoDB
         self.scheduler = AsyncIOScheduler()  # 예약 이벤트 수행
-        self.token = self.db.get_token(test=True)
+        self.token = DB.get_token(test=test)
 
         # 헬퍼 객체
         self.messenger = Messenger(self)   # 채팅 메시지 생성
 
-        super().__init__(command_prefix=PREFIX,
-                         owner_ids=OWNER_IDS,
+        super().__init__(command_prefix=self.prefix,
+                         owner_ids=self.owners,
                          intents=Intents.all())
 
     # 봇 진입점
@@ -91,9 +90,12 @@ class Bot(BotBase):
         if not self.ready:
             # 환경설정 세팅
             self.ready = True
-            self.stdout = self.get_channel(STDOUT)
-            self.guild = self.get_guild(GUILD)
+            self.stdout = self.get_channel(self.stdout)
             self.scheduler.start()
+
+            # 서버 목록 업데이트
+            guilds = [guild.id for guild in self.guilds]
+            self.db.set_config('guilds', guilds)
 
             # ~하는 중 표시
             my_activity = discord.Game("열심히 학습")
@@ -101,7 +103,7 @@ class Bot(BotBase):
 
             # 인사말 전송
             intro = self.messenger.introduce_self()
-            await self.stdout.send(embed=intro)
+            # await self.stdout.send(embed=intro)
 
             print("아늑이가 준비를 마쳤습니다!")
         else:
@@ -127,5 +129,5 @@ class Bot(BotBase):
 
 
 # 봇 인스턴스 생성
-bot = Bot()
+bot = Bot(test=True)
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
