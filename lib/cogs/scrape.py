@@ -109,12 +109,13 @@ class ScrapeCog(Cog):
         pass
 
     @command(name="레이드동기화")
-    async def syncronize_raid_time(self):
+    async def syncronize_raid_time(self, ctx):
         """
          싴갤러스의 레이드 시간표와 DB를 동기화한다.
         :return: None
         """
         chic_scraper.syncronize_raid_time()
+        await ctx.send("동기화 작업이 완료되었습니다.")
 
 def setup(bot):
     bot.add_cog(ScrapeCog(bot))
