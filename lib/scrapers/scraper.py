@@ -1,5 +1,5 @@
 import os
-
+import time
 import bs4.element
 import requests
 from selenium                           import webdriver
@@ -24,6 +24,7 @@ class Scraper:
 
         if dynamic:
             Scraper.browser.get(url)
+            time.sleep(1)
             html = Scraper.browser.page_source
         else:
             response = requests.get(url)
