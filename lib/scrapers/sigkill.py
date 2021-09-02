@@ -23,8 +23,7 @@ class SigKillScraper(Scraper):
                 return
 
             # DB에 저장
-            for mission in missions:
-                DB.insert_today_missions(today, mission)
+            DB.insert_today_missions(today, missions)
 
         return missions
 

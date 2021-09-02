@@ -99,19 +99,18 @@ class DataBase(MongoClient):
 
         my_query = { 'date': date_str }
 
-        docs = list(collection.find(my_query))
-        if len(docs) == 0:
+        doc = collection.find_one(my_query)
+        if not doc:
             return None
 
         # 이벤트를 리스트로 변환한다.
-        return Formatter.missions_to_list(docs)
+        return doc['missions']
 
-    def insert_today_missions(self, date, event):
+    def insert_today_missions(self, date, missions: list):
         """
         오늘의 미션 정보를 저장한다.
         :param date: (datetime.date || datetime) 등록할 날짜
-        :param event: (str) 이벤트 명
-        :param cat: (Category)
+        :param missions: (list) 스크레이핑한 미션 목록
         :return: None
         """
         collection = self.get_collection(EVENT_TODAY)
@@ -121,7 +120,7 @@ class DataBase(MongoClient):
 
         data = {
             'date': date_str,
-            'event': event,
+            'missions': missions,
         }
 
         try:
