@@ -1,4 +1,5 @@
-import sys                          # 강제종료
+import sys      # 강제종료
+import os       # 환경변수 읽기
 
 from os.path import isfile          # 파일 존재 확인
 from datetime import date
@@ -11,7 +12,9 @@ from datetime import date
 
 # MongoDB 주소 얻어오기
 if not isfile("db_host.0"):
-    sys.exit("'db_host.0 파일이 없습니다. 관리자에게 문의하세요.")
+    HOST = os.environ.get('DB_TOKEN')
+    if not HOST:
+        sys.exit("'db_host.0 파일이 없습니다. 관리자에게 문의하세요.")
 else:
     with open("db_host.0") as file:
         HOST = file.read()
