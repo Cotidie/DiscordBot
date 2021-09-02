@@ -1,3 +1,5 @@
+import os
+
 import bs4.element
 import requests
 from selenium                           import webdriver
@@ -55,9 +57,10 @@ class Browser(webdriver.Chrome, IClosable):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--headless')
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
         # 브라우저 초기화
-        super().__init__(options=chrome_options)
+        super().__init__(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
 
     def close(self):
         self.quit()
