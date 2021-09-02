@@ -14,7 +14,7 @@ from datetime import date
 if not isfile("db_host.0"):
     HOST = os.environ.get('DB_TOKEN')
     if not HOST:
-        sys.exit("'db_host.0 파일이 없습니다. 관리자에게 문의하세요.")
+        sys.exit("DB 토큰을 찾을 수 없습니다. 관리자에게 문의하세요.")
 else:
     with open("db_host.0") as file:
         HOST = file.read()
