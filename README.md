@@ -32,3 +32,18 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 * **'/레이드'**
   * Options: '현재' and raid boss names.
   * Feature: Show raid info of each boss. If the option is '현재', a list of raids currently in progress will be displayed.
+
+## Deployment on Heroku
+1. Login to heroku CLI and clone heroku git
+```shell
+> cd ./data/heroku
+> heroku login
+> heroku git:remote -a <heroku app>
+```
+2. Register Env variable 'DB_TOKEN' on Heroku website
+3. Deploy this branch to Heroku app on Heroku website
+4. If something fails, run this command to view logs
+```shell
+> heroku logs -a <heroku app>
+```
+5. In Resources tab, turn on the main.py
