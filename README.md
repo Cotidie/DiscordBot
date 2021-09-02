@@ -40,10 +40,29 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 > heroku login
 > heroku git:remote -a <heroku app>
 ```
-2. Register Env variable 'DB_TOKEN' on Heroku website
-3. Deploy this branch to Heroku app on Heroku website
-4. If something fails, run this command to view logs
+2. Register following Env variables
+```text
+'DB_TOKEN': a token string for MongoDB
+'GOOGLE_CHROME_BIN': /app/.apt/usr/bin/google-chrome
+'CHROMEDRIVER_PATH': /app/.chromedriver/bin/chromedriver
+```
+3. Add those buildpacks for chromedriver
+```text
+https://github.com/heroku/heroku-buildpack-google-chrome
+https://github.com/heroku/heroku-buildpack-chromedriver
+```
+4. Add following snippet for selenium's chromedriver
+```python
+from selenium import webdriver
+import os
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+```
+5. Deploy this branch to Heroku app on Heroku website
+6. If something fails, run this command to view logs
 ```shell
 > heroku logs -a <heroku app>
 ```
-5. In Resources tab, turn on the main.py
+7.In Resources tab, turn on the main.py
