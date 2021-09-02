@@ -104,7 +104,7 @@ class Bot(BotBase):
 
             # 인사말 전송
             intro = self.messenger.introduce_self()
-            await self.stdout.send(embed=intro)
+            #await self.stdout.send(embed=intro)
 
             print("아늑이가 준비를 마쳤습니다!")
         else:
@@ -132,5 +132,5 @@ class Bot(BotBase):
 
 
 # 봇 인스턴스 생성
-bot = Bot(test=True)
+bot = Bot(test=False)
 slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
