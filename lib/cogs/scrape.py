@@ -62,6 +62,10 @@ class ScrapeCog(Cog):
 
         # 오늘의 미션 정보 얻기
         events = sigkill_scraper.get_today_missions(today)
+        if not events:
+            await ctx.send("정보를 불러오는 데에 실패했어요 ;_;")
+            return
+
         for event in events:
             result += event + "\n"
 
