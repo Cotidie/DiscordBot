@@ -2,7 +2,6 @@ import sys      # 강제종료
 import os       # 환경변수 읽기
 
 from os.path import isfile          # 파일 존재 확인
-from datetime import date
 
 
 """
