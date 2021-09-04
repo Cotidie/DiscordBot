@@ -8,7 +8,7 @@ from discord_slash.utils.manage_commands import create_option, create_choice
 from lib.scrapers       import sigkill_scraper, chic_scraper
 from lib.db             import DB
 from lib.bot            import GUILDS
-from lib.helpers        import Formatter, Messenger
+from lib.helpers        import Formatter
 
 
 # 관련 메소드가 많아지면 helper > option.py로 분리
