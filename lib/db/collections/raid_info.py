@@ -1,4 +1,5 @@
 from pymongo.collection import Collection
+from enum               import Enum
 
 """
     raid_info 콜렉션의 필드
@@ -11,6 +12,17 @@ from pymongo.collection import Collection
         * map: (list) 출현위치 이미지 링크
         * link: (str) 싴갤러스 링크
 """
+
+
+class Keys(Enum):
+    Name        = 'name'
+    Location    = 'location'
+    Weekday     = 'weekday'
+    Weekend     = 'weekend'
+    Reward      = 'reward'
+    Icon        = 'icon'
+    Map         = 'map'
+    Link        = 'link'
 
 
 class RaidInfo(Collection):
