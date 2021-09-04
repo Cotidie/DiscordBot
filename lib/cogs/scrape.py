@@ -5,10 +5,10 @@ from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option, create_choice
 
 # 커스텀 객체
-from lib.scrapers   import sigkill_scraper, chic_scraper
-from lib.db         import DB
-from lib.bot        import GUILDS
-from lib.helpers    import Formatter
+from lib.scrapers       import sigkill_scraper, chic_scraper
+from lib.db             import DB
+from lib.bot            import GUILDS
+from lib.helpers        import Formatter, Messenger
 
 
 # 관련 메소드가 많아지면 helper > option.py로 분리
@@ -91,8 +91,19 @@ class ScrapeCog(Cog):
                 await ctx.send(message)
                 return
 
-            message = f"현재 {', '.join(bosses)} 출현시간입니다."
+            message = f"현재 {', '.join(bosses)} 출현시간입니다. \n 다음은 출현정보입니다."
             await ctx.send(message)
+
+            # 출현정보 만들기
+            embeds = []
+            for boss in bosses:
+                info      = DB.get_raid_boss(boss)
+                status    = chic_scraper.get_raid_status(info)
+                embed     = self.bot.messenger.embed_raid_status(info, status)
+                embeds.append(embed)
+
+            # 페이지로 만들어 출력
+
             return
 
         boss_info = self.bot.db.get_raid_boss(boss)
