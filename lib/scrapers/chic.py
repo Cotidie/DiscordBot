@@ -4,6 +4,7 @@ from datetime   import datetime
 from config                 import CONFIG
 from lib.scrapers.scraper   import Scraper
 from lib.db                 import DB
+from lib.db.collections     import InfoKeys
 
 
 class ChicScraper(Scraper):
@@ -11,6 +12,22 @@ class ChicScraper(Scraper):
 
     def __init__(self):
         super().__init__()
+
+    def get_raid_status(self, boss: dict):
+        """
+        해당 보스의 출현정보를 알아본다
+        :param boss: (dict) DB에서 가져온 보스 정보
+        :return: (list) RaidStatus를 원소로 하는 리스트
+        """
+        class RaidStatus:
+            def __init__(self, channel: str, status: str):
+                self.channel = channel
+                self.status = status    # 출현중, 미출현, 완료 중 하나
+
+
+        return
+
+
 
     def syncronize_raid_time(self):
         """
