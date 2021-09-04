@@ -1,7 +1,7 @@
 from discord import Embed
 from datetime import date
 
-from lib.db.collections import ConfKeys
+from lib.db.collections import ConfKeys, InfoKeys
 
 """
     봇의 디스코드 채팅을 위한 메시지 빌더
@@ -81,5 +81,45 @@ class Messenger:
         # 이미지 추가
         embed.set_thumbnail(url=boss['icon'])
         embed.set_image(url=boss['map'][0])
+
+        return embed
+
+    def embed_raid_status(self, boss: dict, status: list):
+        """
+        채널별 상태 정보로부터 Embed 객체를 만든다.
+        :param boss: (dict) DB에서 불러온 보스 정보
+        :param status: (list) {channel, status}를 원소로 하는 리스트
+        :return: (discord.Embed) 채널별 상태정보가 담긴 Embed
+        """
+        name = boss[InfoKeys.Name]
+        icon = boss[InfoKeys.Icon]
+
+        # embed 생성
+        embed = Embed(title=f"레이드 상태", color=self.color)
+        embed.set_author(name=name, icon_url=icon)
+
+        # 레이드 상태별 분류
+        on_raid = [];not_yet = [];finished = []
+        for ch in status:
+            if ch.status == "출현중":
+                on_raid.append(ch.channel)
+            elif ch.status == "미출현":
+                not_yet.append(ch.channel)
+            elif ch.status == "완료":
+                finished.append(ch.channel)
+
+        # 문자열로 변경
+        on_raid = "없음" if len(on_raid) == 0 else ", ".join(on_raid)
+        not_yet = "없음" if len(not_yet) == 0 else ", ".join(not_yet)
+        finished = "없음" if len(finished) == 0 else ", ".join(finished)
+
+        # 필드 추가
+        fields = [
+            (":fire: 출현중", on_raid, False),
+            (":alarm_clock: 미출현", not_yet, False),
+            (":skull: 완료", finished, False)
+        ]
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
 
         return embed
