@@ -57,7 +57,7 @@ class Browser(webdriver.Chrome, IClosable):
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('--headless')
+        #chrome_options.add_argument('--headless')
 
         # Heroku 환경과 구분하여 초기화
         chrome_bin = os.environ.get("GOOGLE_CHROME_BIN")
