@@ -102,7 +102,9 @@ class ScrapeCog(Cog):
                 embed     = self.bot.messenger.embed_raid_status(info, status)
                 embeds.append(embed)
 
-            # 페이지로 만들어 출력
+            # TODO: 페이지로 만들어 출력
+            for embed in embeds:
+                await ctx.send(embed=embed)
 
             return
 
