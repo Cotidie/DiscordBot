@@ -14,3 +14,4 @@
 - [ ] Formatter의 순환 import 문제. 구조 수정 필요
 - [ ] ResourceManager 메소드 모두 static으로 제공
 - [ ] Syncronize_raid_time => 동기화 전 비우기
+- [ ] 스크레이퍼마다 다른 탭 할당
