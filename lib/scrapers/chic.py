@@ -24,10 +24,24 @@ class ChicScraper(Scraper):
                 self.channel = channel
                 self.status = status    # 출현중, 미출현, 완료 중 하나
 
+        html = self.get_html(boss[InfoKeys.Link])
+        parser = BeautifulSoup(html, 'html.parser')
+        result = []
 
-        return
+        # id="timetable"인 table 태그를 찾는다.
+        table = parser.find("table", {'id': 'timetable'})
 
+        # tbody의 모든 tr을 순회한다.
+        trs = table.find("tbody").find_all("tr")
+        if len(trs) == 1:
+            return None
 
+        for tr in trs:
+            channel = tr.find({'data-th': '채널'}).text
+            status = tr.find({'data-th': '상태'}).text
+            result.append(RaidStatus(channel, status))
+
+        return result
 
     def syncronize_raid_time(self):
         """
