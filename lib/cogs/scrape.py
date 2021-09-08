@@ -63,7 +63,7 @@ class ScrapeCog(Cog):
                 await ctx.send(message)
                 return
 
-            message = f"현재 {', '.join(bosses)} 출현시간입니다. \n 다음은 출현정보입니다."
+            message = f"현재 {', '.join(bosses)} 출현시간입니다. \n출현정보를 불러올게요..."
             await ctx.send(message)
 
             # 출현정보 만들기
