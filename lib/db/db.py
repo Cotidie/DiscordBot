@@ -131,6 +131,14 @@ class DataBase(MongoClient):
             print("저장에 실패했습니다.")
             print(e)
 
+    def get_day_effect(self, day: int):
+        """
+        요일별 효과를 불러온다.
+        :param day: (int) 요일 정수
+        :return: (dict) DB에서 가져온 요일효과 원본
+        """
+        return self.cols[DAY_EFFECT].get_day_info(day)
+
     def get_raid_bosses(self):
         """
         :return: (list) 레이드 보스 리스트
