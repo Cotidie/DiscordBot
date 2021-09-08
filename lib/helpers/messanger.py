@@ -91,8 +91,8 @@ class Messenger:
         :param status: (list) {channel, status}를 원소로 하는 리스트
         :return: (discord.Embed) 채널별 상태정보가 담긴 Embed
         """
-        name = boss[InfoKeys.Name]
-        icon = boss[InfoKeys.Icon]
+        name = boss[InfoKeys.Name.value]
+        icon = boss[InfoKeys.Icon.value]
 
         # embed 생성
         embed = Embed(title=f"레이드 상태", color=self.color)
