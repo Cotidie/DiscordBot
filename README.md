@@ -32,6 +32,11 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 * **'/레이드'**
   * Options: '현재' and raid boss names.
   * Feature: Show raid info of each boss. If the option is '현재', a list of raids currently in progress will be displayed.
+* **'/오늘의효과'**
+  * Options: '오늘' and days of the week.
+  * Feature: Show daily effects and designated advanced items. Note that advanced items' rotating time is 7 am unlike effects.
+* **'/자기소개'**
+  * Feature: A command for self-introduction.
 
 ## Deployment on Heroku
 1. Login to heroku CLI and clone heroku git
@@ -40,7 +45,7 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 > heroku login
 > heroku git:remote -a <heroku app>
 ```
-2. Register following Env variables
+2. Register following Env variables for chromedriver
 ```text
 'DB_TOKEN': a token string for MongoDB
 'GOOGLE_CHROME_BIN': /app/.apt/usr/bin/google-chrome
@@ -51,21 +56,12 @@ A discord bot to make ease of various nuisances in Mabinogi, a korean classic ga
 https://github.com/heroku/heroku-buildpack-google-chrome
 https://github.com/heroku/heroku-buildpack-chromedriver
 ```
-4. Add following snippet for selenium's chromedriver
-```python
-from selenium import webdriver
-import os
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-```
-5. Deploy this branch to Heroku app on Heroku website
-6. If something fails, run this command to view logs
+4. Deploy this branch to Heroku app on Heroku website
+5. If something fails, run this command to view logs
 ```shell
 > heroku logs -a <heroku app>
 ```
-7. In Resources tab, turn on the main.py
+6. In Resources tab, turn on the main.py
 
 ## Developer
 * Cotidie(Won Seok)
