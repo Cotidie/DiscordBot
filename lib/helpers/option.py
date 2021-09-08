@@ -3,6 +3,7 @@ from lib.db import DB
 
 # option types: https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
 
+
 class OptionMaker:
     @staticmethod
     def raid_info_options():

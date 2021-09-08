@@ -7,7 +7,8 @@ from discord_slash import cog_ext, SlashContext
 from lib.scrapers       import sigkill_scraper, chic_scraper
 from lib.db             import DB
 from lib.bot            import GUILDS
-from lib.helpers        import Formatter, OptionMaker
+from lib.helpers        import Formatter
+from lib.helpers.option import OptionMaker
 
 
 class ScrapeCog(Cog):

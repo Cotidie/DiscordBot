@@ -4,7 +4,8 @@ from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 
 from lib.bot            import GUILDS
-from lib.helpers        import Formatter, OptionMaker
+from lib.helpers        import Formatter
+from lib.helpers.option import OptionMaker
 """
     가이드 및 정보 안내를 위한 명령어 Cog
 """
