@@ -1,7 +1,7 @@
 from discord import Embed
 from datetime import date
 
-from lib.db.collections import ConfKeys, InfoKeys
+from lib.db.collections import ConfKeys, InfoKeys, DayKeys
 
 """
     봇의 디스코드 채팅을 위한 메시지 빌더
@@ -119,6 +119,41 @@ class Messenger:
             (":alarm_clock: 미출현", not_yet, False),
             (":skull: 완료", finished, False)
         ]
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        return embed
+
+    def embed_day_effect(self, info: dict):
+        """
+        요일별 효과를 정리하여 Embed를 만든다.
+        :param info: (dict) DB에서 가져온 요일별 효과 정보
+        :return: (discord.embed)
+        """
+        from lib.helpers import Formatter  # Circular import 문제. 구조 수정할 필요 있음.
+
+        day = info[DayKeys.Day.value]           # 요일 정수
+        day_alt = info[DayKeys.Alt.value]       # 마비노기 요일명
+        day_str = Formatter.get_day_string(day) # 요일 한글명
+
+        # embed 생성
+        embed = Embed(title=f"{day_str}({day_alt})", color=self.color, description=f"{day_str}의 어드밴스드 아이템 및 요일 효과입니다.")
+        embed.set_footer(text=f"정보 기준일 - {info[DayKeys.Update.value]}")
+
+        # 어드밴스드 아이템
+        adv_items = list(map(Formatter.advanced_item_string, info[DayKeys.Items.value]))
+        adv_items_str = Formatter.make_unordered_list(adv_items, "-")
+
+        # 효과
+        effects = info[DayKeys.Effects.value]
+        effects_str = Formatter.make_unordered_list(effects, "-")
+
+        # 필드 추가
+        fields = [
+            (":postbox: 어드밴스드 아이템", adv_items_str, False),
+            (":sparkles: 오늘의 효과", effects_str, False),
+        ]
+
         for name, value, inline in fields:
             embed.add_field(name=name, value=value, inline=inline)
 
