@@ -49,16 +49,6 @@ class OptionMaker:
         ]
         options = [
             create_option(
-                name="which",
-                description="어떤 것이 궁금하세요?",
-                required=True,
-                option_type=3,
-                choices=[
-                    create_choice(name="요일효과", value="요일"),
-                    create_choice(name="어드밴스드 상세", value="어드밴스드"),
-                ]
-            ),
-            create_option(
                 name="day",
                 description="무슨 요일을 알려드릴까요?",
                 required=True,
