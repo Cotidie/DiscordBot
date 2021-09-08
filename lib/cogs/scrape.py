@@ -95,17 +95,15 @@ class ScrapeCog(Cog):
             await ctx.send(message)
 
             # 출현정보 만들기
-            embeds = []
             for boss in bosses:
                 info      = DB.get_raid_boss(boss)
                 status    = chic_scraper.get_raid_status(info)
+                if not status:
+                    continue
                 embed     = self.bot.messenger.embed_raid_status(info, status)
-                embeds.append(embed)
-
-            # TODO: 페이지로 만들어 출력
-            for embed in embeds:
                 await ctx.send(embed=embed)
 
+            # TODO: 페이지로 만들어 출력
             return
 
         boss_info = self.bot.db.get_raid_boss(boss)
