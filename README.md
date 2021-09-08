@@ -66,3 +66,6 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), c
 > heroku logs -a <heroku app>
 ```
 7. In Resources tab, turn on the main.py
+
+## Developer
+* Cotidie(Won Seok)
