@@ -7,6 +7,17 @@ import pytz
 
 
 class Formatter:
+    weekdays = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
+
+    @staticmethod
+    def get_day_string(day: int):
+        """
+        요일 숫자를 한글 요일명으로 반환한다.
+        :param day: (int) 월요일을 0으로 하는 정수
+        :return: (str) 한글 요일명
+        """
+        return Formatter.weekdays[day]
+
     @staticmethod
     def get_date_string(date):
         """
