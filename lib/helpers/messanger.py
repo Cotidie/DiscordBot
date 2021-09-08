@@ -137,7 +137,8 @@ class Messenger:
         day_str = Formatter.get_day_string(day) # 요일 한글명
 
         # embed 생성
-        embed = Embed(title=f"{day_str}({day_alt})", color=self.color, description=f"{day_str}의 어드밴스드 아이템 및 요일 효과입니다.")
+        embed = Embed(title=f"{day_str}({day_alt})", color=self.color,
+                      description=f"{day_str}의 어드밴스드 아이템 및 요일 효과입니다.\n날짜 계산은 현실시간 오전 7시를 기준으로 합니다.")
         embed.set_footer(text=f"정보 기준일 - {info[DayKeys.Update.value]}")
 
         # 어드밴스드 아이템
