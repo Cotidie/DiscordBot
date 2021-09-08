@@ -24,7 +24,7 @@ class ChicScraper(Scraper):
                 self.channel = channel
                 self.status = status    # 출현중, 미출현, 완료 중 하나
 
-        html = self.get_html(boss[InfoKeys.Link])
+        html = self.get_html(boss[InfoKeys.Link.value])
         parser = BeautifulSoup(html, 'html.parser')
         result = []
 
@@ -33,13 +33,15 @@ class ChicScraper(Scraper):
 
         # tbody의 모든 tr을 순회한다.
         trs = table.find("tbody").find_all("tr")
-        if len(trs) == 1:
+        if len(trs) <= 1:
             return None
 
         for tr in trs:
-            channel = tr.find({'data-th': '채널'}).text
-            status = tr.find({'data-th': '상태'}).text
+            channel = tr.find("td", {'data-th': '채널'}).text
+            status = tr.find("td", {'data-th': '상태'}).text
             result.append(RaidStatus(channel, status))
+
+        result.sort(key=lambda raid: int(raid.channel))
 
         return result
 
