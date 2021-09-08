@@ -53,6 +53,7 @@ CONFIG = {
             'RAID_ID': 'raid_id',
             'RAID_INFO': 'raid_info',
             'RAID_TIME': 'raid_time',
+            'DAY_EFFECT': 'day_effect',
         }
     }
 }

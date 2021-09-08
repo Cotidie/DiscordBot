@@ -22,6 +22,7 @@ CONFIG      = COLLECTIONS['CONFIG']
 EVENT_TODAY = COLLECTIONS['EVENT_TODAY']
 RAID_INFO   = COLLECTIONS['RAID_INFO']
 RAID_TIME   = COLLECTIONS['RAID_TIME']
+DAY_EFFECT  = COLLECTIONS['DAY_EFFECT']
 
 
 class DataBase(MongoClient):
@@ -39,7 +40,8 @@ class DataBase(MongoClient):
             CONFIG: Config(self.db, CONFIG),
             EVENT_TODAY: EventToday(self.db, EVENT_TODAY),
             RAID_INFO: RaidInfo(self.db, RAID_INFO),
-            RAID_TIME: RaidTime(self.db, RAID_TIME)
+            RAID_TIME: RaidTime(self.db, RAID_TIME),
+            DAY_EFFECT: DayEffect(self.db, DAY_EFFECT),
         }
         self.host = host         # DB 호스트 명
 
