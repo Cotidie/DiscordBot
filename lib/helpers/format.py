@@ -72,3 +72,18 @@ class Formatter:
             return k_now
         elif ltype == 'date':
             return k_now.date()
+
+    @staticmethod
+    def advanced_item_string(item: dict):
+        """
+        어드밴스드 아이템 정보를 받아 한줄의 문자열로 만든다
+        :param item: (dict) 어드밴드스 아이템
+        :return: (str) 한줄 문자열
+        """
+        name = item['name']
+        number = f"{item['num']}개"
+        attrs = [number] + item['attr']
+
+        return f'{name}({", ".join(attrs)})'
+
+
